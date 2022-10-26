@@ -103,7 +103,6 @@ public class GrafoTest {
         assertEquals( this.grafo.getRotulosEmIndices().get("um"),0);
         assertEquals( this.grafo.getRotulosEmIndices().get("dois"),1);
     }
-
     @Test
     public void verificaSizeDaMatrizDeAdjacencia(){
         assertEquals( this.grafo.getMatrizAdjacencia().getLength(),2);

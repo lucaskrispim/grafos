@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Grafo {
 
     private Integer qtdVertices;
-    private List<Vertice> vertices = new ArrayList<>();
+    private List<Vertice> vertices;
 
     private Map<String,Integer> rotulosEmIndices;
 
@@ -22,6 +22,7 @@ public class Grafo {
         this.qtdVertices = 0;
         this.rotulosEmIndices = new HashMap<>();
         this.ligacoes = new HashMap<>();
+        this.vertices = new ArrayList<>();
     }
 
     public void adicionarVertice(String rotulo){

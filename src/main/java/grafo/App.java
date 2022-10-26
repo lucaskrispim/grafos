@@ -33,6 +33,8 @@ public class App
 
         System.out.println(grafo.getGrafo());
         System.out.println(" ");
+        System.out.println(grafo.getAdjacencias("RJ"));
+        System.out.println(" ");
         System.out.println(grafo.getMatrizAdjacencia().toString());
 
     }

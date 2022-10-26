@@ -124,6 +124,18 @@ public class Grafo {
 
     }
 
+    public int getOrdem(){
+        return this.qtdVertices;
+    }
+
+    public String getAdjacencias(String rotulo){
+
+        this.checkConditions(!this.existeVertice(rotulo) ,"Para ter a adjacência o vértice deve existir.");
+
+        return ligacoes.get(rotulo).entrySet().stream().map(Map.Entry::getKey)
+                .collect(Collectors.toList()).toString();
+    }
+
     private void checkConditions(Boolean cond,String msg) {
         if (cond) throw new IllegalArgumentException(msg);
     }

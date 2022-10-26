@@ -131,4 +131,14 @@ public class GrafoTest {
         assertEquals( this.grafo.getVertice("dois").getGrau(),1);
     }
 
+    @Test
+    public void verificaAdjacenciasDeUmVertice(){
+        assertTrue( this.grafo.getAdjacencias("um").equals("[dois]") );
+    }
+
+    @Test
+    public void verificaOrdemDoGrafo(){
+        assertEquals( this.grafo.getOrdem(),2);
+    }
+
 }

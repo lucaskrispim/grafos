@@ -118,7 +118,17 @@ public class GrafoTest {
                 () -> assertEquals(this.grafo.getMatrizAdjacencia().getMatriz()[1][0],1),
                 () -> assertEquals(this.grafo.getMatrizAdjacencia().getMatriz()[1][1],0)
         );
-        
+
+    }
+
+    @Test
+    public void verificaGrauDoVerticeUm(){
+        assertEquals( this.grafo.getVertice("um").getGrau(),1);
+    }
+
+    @Test
+    public void verificaGrauDoVerticeDois(){
+        assertEquals( this.grafo.getVertice("dois").getGrau(),1);
     }
 
 }

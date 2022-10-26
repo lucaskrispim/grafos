@@ -80,27 +80,21 @@ public class Grafo {
 
     public Integer getPeso(String rotuloVerticeInicial, String rotuloVerticeFinal)
     {
-        try {
-            int indiceVerticeInicial = rotulosEmIndices.get(rotuloVerticeInicial);
-            int indiceVerticeFinal = rotulosEmIndices.get(rotuloVerticeFinal);
+        this.checkConditions(!this.existeVertice(rotuloVerticeInicial) || !this.existeVertice(rotuloVerticeFinal),"Para receber o peso ambos os vértices devem existir.");
 
-            return matrizAdjacencia.getPeso(indiceVerticeInicial, indiceVerticeFinal);
-        }catch (Exception e){
-            System.out.println("Erro: "+e.getMessage());
-        }
+        int indiceVerticeInicial = rotulosEmIndices.get(rotuloVerticeInicial);
+        int indiceVerticeFinal = rotulosEmIndices.get(rotuloVerticeFinal);
 
-        return null;
+        return matrizAdjacencia.getPeso(indiceVerticeInicial, indiceVerticeFinal);
+
     }
 
     public Map<String, Integer> getRotulosEmIndices(){
         return rotulosEmIndices;
     }
+
     public MatrizAdjacencia getMatrizAdjacencia() {
         return matrizAdjacencia;
-    }
-
-    private void checkConditions(Boolean cond,String msg) {
-        if (cond) throw new IllegalArgumentException(msg);
     }
 
     public String getGrafo(){
@@ -114,7 +108,6 @@ public class Grafo {
                     if (this.getPeso(vertice.getRotulo(), anotherVertice.getRotulo()) > 0) {
                         s = s.concat(anotherVertice.getRotulo() + "-" + this.getPeso(vertice.getRotulo(), anotherVertice.getRotulo()) + " ");
                     }
-
                 }
                 s = s.concat("\n");
             }
@@ -122,5 +115,11 @@ public class Grafo {
 
         return s;
     }
+
+    private void checkConditions(Boolean cond,String msg) {
+        if (cond) throw new IllegalArgumentException(msg);
+    }
+
+
 
 }

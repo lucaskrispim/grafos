@@ -99,6 +99,14 @@ public class MatrizAdjacencia {
         if (cond) throw new IllegalArgumentException(msg);
     }
 
+    public int getLength(){
+        return matriz.length;
+    }
+
+    public int[][] getMatriz() {
+        return this.matriz;
+    }
+
     @Override
     public String toString() {
         String s = "";

@@ -3,7 +3,9 @@ package grafo.core;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.function.Executable;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,23 +83,42 @@ public class GrafoTest {
     }
 
     @Test
-    public void verificarPeso(){
+    public void verificarPesoUmParaDois(){
         assertTrue(this.grafo.getPeso("um","dois").equals(1));
     }
 
     @Test
-    public void verificarPeso2(){
+    public void verificarPesoDoisParaUm(){
         assertTrue(this.grafo.getPeso("dois","um").equals(1));
     }
 
     @Test
-    public void verificarPesoLiberaExcessao(){
-        //Exception exception = assertThrows(Exception.class, () -> this.grafo.getPeso("dois","quatro"));
-
-        assertThrowsExactly(Exception.class, () -> this.grafo.getPeso("dois","quatro"));
-
-        //assertEquals("Para adicionar uma aresta ambos os vértices devem existir.", exception.getMessage());
+    public void verificaQueNaoTemPesoComRotulosInexistentes(){
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> this.grafo.getPeso("um", "tres"));
+        assertEquals("Para receber o peso ambos os vértices devem existir.", exception.getMessage());
     }
 
+    @Test
+    public void verificaRotulosEmIndices(){
+        assertEquals( this.grafo.getRotulosEmIndices().get("um"),0);
+        assertEquals( this.grafo.getRotulosEmIndices().get("dois"),1);
+    }
+
+    @Test
+    public void verificaSizeDaMatrizDeAdjacencia(){
+        assertEquals( this.grafo.getMatrizAdjacencia().getLength(),2);
+    }
+
+    @Test
+    public void verificaAMatrizDeAdjacencia(){
+
+        assertAll("Posições na matriz",
+                (Executable) () -> assertEquals(this.grafo.getMatrizAdjacencia().getMatriz()[0][0],0),
+                () -> assertEquals(this.grafo.getMatrizAdjacencia().getMatriz()[0][1],1),
+                () -> assertEquals(this.grafo.getMatrizAdjacencia().getMatriz()[1][0],1),
+                () -> assertEquals(this.grafo.getMatrizAdjacencia().getMatriz()[1][1],0)
+        );
+        
+    }
 
 }

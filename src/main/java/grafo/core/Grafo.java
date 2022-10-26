@@ -4,24 +4,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Grafo {
 
     private Integer qtdVertices;
     private List<Vertice> vertices = new ArrayList<>();
 
-    private Map<String,Integer> rotulosEmIndices = new HashMap<>();
+    private Map<String,Integer> rotulosEmIndices;
+
+    private Map<String,Map<String, Integer>> ligacoes;
 
     private MatrizAdjacencia matrizAdjacencia;
 
     public Grafo(){
+
         this.qtdVertices = 0;
+        this.rotulosEmIndices = new HashMap<>();
+        this.ligacoes = new HashMap<>();
     }
 
     public void adicionarVertice(String rotulo){
         this.checkConditions(rotulo == null || (rotulo != null && "".equals(rotulo.trim())),"Não é permitida a inclusão de vértices com rótulo em branco.");
+
         this.vertices.add(new Vertice(rotulo));
         this.rotulosEmIndices.put(rotulo, qtdVertices);
+
+        ligacoes.put(rotulo,new HashMap<>());
+
         qtdVertices++;
 
     }
@@ -49,7 +59,10 @@ public class Grafo {
         int indiceVerticeInicial = rotulosEmIndices.get(rotuloVerticeInicial);
         int indiceVerticeFinal = rotulosEmIndices.get(rotuloVerticeFinal);
 
-        matrizAdjacencia.adicionarArestaDirecionada(indiceVerticeInicial, indiceVerticeFinal, peso);
+        matrizAdjacencia.adicionarArestaDirecionada(indiceVerticeInicial, indiceVerticeFinal);
+
+        ligacoes.get(rotuloVerticeInicial).put(rotuloVerticeFinal,peso);
+
     }
 
     private void criarMatrizAdjacencia() {
@@ -82,10 +95,7 @@ public class Grafo {
     {
         this.checkConditions(!this.existeVertice(rotuloVerticeInicial) || !this.existeVertice(rotuloVerticeFinal),"Para receber o peso ambos os vértices devem existir.");
 
-        int indiceVerticeInicial = rotulosEmIndices.get(rotuloVerticeInicial);
-        int indiceVerticeFinal = rotulosEmIndices.get(rotuloVerticeFinal);
-
-        return matrizAdjacencia.getPeso(indiceVerticeInicial, indiceVerticeFinal);
+        return ligacoes.get(rotuloVerticeInicial).get(rotuloVerticeFinal);
 
     }
 
@@ -101,19 +111,16 @@ public class Grafo {
 
         String s = "";
 
-        for(Vertice vertice: this.vertices){
-            if ( matrizAdjacencia.getAdjacencias(rotulosEmIndices.get(vertice.getRotulo())).size() > 0 ) {
-                s = s.concat(vertice.getRotulo() + ": ");
-                for (Vertice anotherVertice : this.vertices) {
-                    if (this.getPeso(vertice.getRotulo(), anotherVertice.getRotulo()) > 0) {
-                        s = s.concat(anotherVertice.getRotulo() + "-" + this.getPeso(vertice.getRotulo(), anotherVertice.getRotulo()) + " ");
-                    }
-                }
+        for (String rotulo: ligacoes.entrySet().stream().map(Map.Entry::getKey).collect(Collectors.toList()) ){
+            if( !ligacoes.get(rotulo).isEmpty()) {
+                s = s.concat(rotulo + ": ");
+                s = s.concat(ligacoes.get(rotulo).toString());
                 s = s.concat("\n");
             }
         }
 
         return s;
+
     }
 
     private void checkConditions(Boolean cond,String msg) {

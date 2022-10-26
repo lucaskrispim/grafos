@@ -23,7 +23,7 @@ public class GrafoTest {
         this.grafo.adicionarVertice("um");
         this.grafo.adicionarVertice("dois");
 
-        this.grafo.conectarVertices("um","dois",1);
+        this.grafo.conectarVertices("um","dois",2);
         this.grafo.conectarVertices("dois","um",1);
     }
 
@@ -84,7 +84,7 @@ public class GrafoTest {
 
     @Test
     public void verificarPesoUmParaDois(){
-        assertTrue(this.grafo.getPeso("um","dois").equals(1));
+        assertTrue(this.grafo.getPeso("um","dois").equals(2));
     }
 
     @Test

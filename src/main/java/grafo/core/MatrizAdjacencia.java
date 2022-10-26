@@ -28,16 +28,16 @@ public class MatrizAdjacencia {
 
     }
 
-    public void adicionarArestaDirecionada(int indiceVerticeInicial, int indiceVerticeFinal, Integer peso) {
+    public void adicionarArestaDirecionada(int indiceVerticeInicial, int indiceVerticeFinal) {
 
         try{
-            peso = peso == null ? 1 : peso;
+
             Vertice verticeInicial = vertices.get(indiceVerticeInicial);
             if(indiceVerticeInicial == indiceVerticeFinal) {
-                matriz[indiceVerticeInicial][indiceVerticeInicial] = peso;
+                matriz[indiceVerticeInicial][indiceVerticeInicial] = 1;
                 verticeInicial.addGrau();
             } else {
-                matriz[indiceVerticeInicial][indiceVerticeFinal] = peso;
+                matriz[indiceVerticeInicial][indiceVerticeFinal] = 1;
                 Vertice verticeFinal = vertices.get(indiceVerticeFinal);
                 verticeFinal.addGrau();
             }
@@ -49,7 +49,7 @@ public class MatrizAdjacencia {
     }
 
     public void adicionarAresta(int indiceVerticeInicial, int indiceVerticeFinal) {
-        this.adicionarArestaDirecionada(indiceVerticeInicial, indiceVerticeFinal,null);
+        this.adicionarArestaDirecionada(indiceVerticeInicial, indiceVerticeFinal);
     }
 
     public List<Vertice> getAdjacencias(int linha) {
